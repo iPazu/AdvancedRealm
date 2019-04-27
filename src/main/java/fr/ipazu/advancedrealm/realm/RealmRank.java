@@ -3,6 +3,8 @@ package fr.ipazu.advancedrealm.realm;
 
 import org.bukkit.ChatColor;
 
+import java.util.ArrayList;
+
 public enum RealmRank {
     MEMBER("Member", ChatColor.AQUA), GUARD("Guard",ChatColor.GOLD), MANAGER("Manager",ChatColor.LIGHT_PURPLE), OWNER("Owner",ChatColor.YELLOW);
     String rank;
@@ -27,5 +29,10 @@ public enum RealmRank {
             }
         }
         return null;
+    }
+    private void useless()
+    {
+        ArrayList<String> strs = new ArrayList<>();
+        strs.forEach(System.out::println);
     }
 }

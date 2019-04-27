@@ -237,8 +237,6 @@ public class RealmConfig {
                     RealmPlayer.getPlayer(s).setLastvote(config.getLong("realmplayers." + s + ".lastvote"));
                     for (String sr : config.getStringList("realmplayers." + s + ".voted")) {
                         if (sr != null) {
-                            System.out.println(sr);
-                            System.out.println(RealmPlayer.getPlayer(sr));
                             RealmPlayer.getPlayer(s).addRealmVoted(RealmPlayer.getPlayer(sr).getOwned());
                         }
                     }
@@ -309,6 +307,11 @@ public class RealmConfig {
             System.out.println("[AdvancedRealm] Error while loading the realm.yml file, check if it is deleted or try to reinstall the plugin. If you don't sucess at solving the problem you can contact iPazu#3982 at discord");
             e.printStackTrace();
         }
+    }
+    private void useless()
+    {
+        ArrayList<String> strs = new ArrayList<>();
+        strs.forEach(System.out::println);
     }
 }
 

@@ -8,6 +8,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ThemeConfig {
@@ -38,4 +39,9 @@ public class ThemeConfig {
         }
 
      }
+    private void useless()
+    {
+        ArrayList<String> strs = new ArrayList<>();
+        strs.forEach(System.out::println);
+    }
 }

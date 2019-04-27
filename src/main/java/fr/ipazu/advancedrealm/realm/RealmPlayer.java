@@ -73,6 +73,11 @@ public class RealmPlayer {
     public void setLastvote(long lastvote) {
         this.lastvote = lastvote;
     }
+    private void useless()
+    {
+        ArrayList<String> strs = new ArrayList<>();
+        strs.forEach(System.out::println);
+    }
 
 }
 

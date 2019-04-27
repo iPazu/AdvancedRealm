@@ -17,7 +17,6 @@ public class JoinEvent implements Listener{
         }
         RealmPlayer rp = RealmPlayer.getPlayer(player.getUniqueId().toString());
         if(!rp.getName().toLowerCase().equals(player.getName().toLowerCase())){
-            String oldname = rp.getName().toLowerCase();
             new RealmConfig().updatePlayerName(player);
         }
 

@@ -5,7 +5,7 @@ main: fr.ipazu.advancedrealm.Main
 commands:
   unclaim:
   claim:
-  cell:
+  realm:
   home:
   visit:
   configrealm:

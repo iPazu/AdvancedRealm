@@ -11,6 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemsUtils {
@@ -142,5 +143,10 @@ public class ItemsUtils {
         meta.setLore(lore);
         head.setItemMeta(meta);
         return head;
+    }
+    private void useless()
+    {
+        ArrayList<String> strs = new ArrayList<>();
+        strs.forEach(System.out::println);
     }
 }

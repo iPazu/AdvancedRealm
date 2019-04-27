@@ -1,6 +1,7 @@
 package fr.ipazu.advancedrealm.utils;
 
 import fr.ipazu.advancedrealm.Main;
+import fr.ipazu.advancedrealm.realm.Realm;
 import fr.ipazu.advancedrealm.realm.RealmConfig;
 import fr.ipazu.advancedrealm.realm.RealmLevel;
 import fr.ipazu.advancedrealm.realm.themes.ThemeConfig;
@@ -16,13 +17,15 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.concurrent.Callable;
 
 public class ConfigFiles {
     private static Location spawn;
     private static Inventory realmchest;
     private static World realmworld;
     private static long cooldown;
-
+    private static HashMap<Material, Double> oregenvalues = new HashMap<>();
+    private static boolean oregenactivated = false;
     private void checkFolder() {
         if (!Main.getInstance().getDataFolder().exists())
             Main.getInstance().getDataFolder().mkdir();
@@ -41,6 +44,11 @@ public class ConfigFiles {
         new ThemeConfig().loadAllThemes();
         System.out.println("[AdvancedRealm] Starting loading realms ...");
         new RealmConfig().loadAllRealm();
+        Verification.check();
+
+
+
+
     }
 
     public void loadConfig() {
@@ -60,6 +68,24 @@ public class ConfigFiles {
             } catch (Exception ex) {
                 System.out.println("[AdvancedRealm] Error while loading the config.yml file in the chest section, check if it is deleted or try to reinstall the plugin. If you don't sucess at solving the problem you can contact iPazu#3982 at discord");
 
+            }
+        }
+        oregenactivated = Config.CONFIG.getConfig().getBoolean("ore_generator.activated");
+        if (config.getString("ore_generator") != null) {
+            int total = 0;
+            for (String s : config.getConfigurationSection("ore_generator").getKeys(false)) {
+                if (!s.equals("activated") && !s.equals("sound")) {
+                    if (Material.getMaterial(s.toUpperCase()) == null) {
+                        System.out.println("[advancedrealm] Failed to load the material: \"" + s + "\" because you've not entered the right spelling in the config.yml file, try another spelling to active it !");
+                    } else {
+                        oregenvalues.put(Material.getMaterial(s.toUpperCase()), config.getDouble("ore_generator." + s));
+                        total += config.getInt("ore_generator." + s);
+                    }
+                }
+            }
+            if (total != 100) {
+                System.out.println("[advancedrealm] Wrong percentage entered for the ore generator in the config.yml file, the total percentage must be equal to 100. Disabling ore generator.");
+                oregenactivated = false;
             }
         }
         cooldown = getCooldown();
@@ -162,11 +188,18 @@ public class ConfigFiles {
         }
         return sb.toString();
     }
-    private void loadUpgrades(){
+    public static HashMap<Material, Double> getOregenvalues() {
+        return oregenvalues;
+    }
+
+    public static boolean getOregenActivated() {
+        return oregenactivated;
+    }
+    private void loadUpgrades() {
         YamlConfiguration config = Config.UPGRADES.getConfig();
         ConfigurationSection levelsection = config.getConfigurationSection("levels");
-        for(String s : levelsection.getKeys(false)){
-            new RealmLevel(Integer.parseInt(s),levelsection.getInt(s+".cost"),levelsection.getInt(s+".bordersize"),levelsection.getInt(s+".maxplayer"));
+        for (String s : levelsection.getKeys(false)) {
+            new RealmLevel(Integer.parseInt(s), levelsection.getInt(s + ".cost"), levelsection.getInt(s + ".bordersize"), levelsection.getInt(s + ".maxplayer"));
         }
     }
 }

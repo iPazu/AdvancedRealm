@@ -21,6 +21,18 @@ config:
     z: -1
     yaw: 0
     pitch: 0
+#Configure the percentage for the ore generator. ⚠️ The total percentage must be equal to 100 !
+ore_generator:
+  activated: true
+  cobblestone: 73
+  stone: 0
+  coal_ore: 7
+  iron_ore: 6
+  lapis_ore: 2
+  redstone_ore: 5
+  gold_ore: 4
+  emerald_ore: 2
+  diamond_ore: 1
 
 vote:
   #Cooldown is handled like that "days/hours/minutes/seconds"

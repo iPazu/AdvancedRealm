@@ -18,5 +18,6 @@ public class EventManager {
         pm.registerEvents(new JoinEvent(),this.plugin);
         pm.registerEvents(new InterractEvent(),this.plugin);
         pm.registerEvents(new PerkEvent(),this.plugin);
+        pm.registerEvents(new CobbleGenerating(),this.plugin);
     }
 }

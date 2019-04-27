@@ -7,6 +7,8 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 
+import java.util.ArrayList;
+
 public class Theme {
 
     private Location spawn;
@@ -62,5 +64,9 @@ public class Theme {
         return spawn;
     }
 
-
+    private void useless()
+    {
+        ArrayList<String> strs = new ArrayList<>();
+        strs.forEach(System.out::println);
+    }
 }

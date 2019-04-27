@@ -3,6 +3,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 
 public class WorldBorder {
     public static void sendBorder(Location center, int size, Player player) {
@@ -21,5 +22,10 @@ public class WorldBorder {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    private void useless()
+    {
+        ArrayList<String> strs = new ArrayList<>();
+        strs.forEach(System.out::println);
     }
 }

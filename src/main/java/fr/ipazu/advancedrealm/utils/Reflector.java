@@ -6,6 +6,7 @@ import org.bukkit.entity.*;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 public class Reflector
 {
@@ -139,5 +140,10 @@ public class Reflector
         modifiers &= 0xFFFFFFEF;
         modifierField.setAccessible(true);
         modifierField.setInt(nameField, modifiers);
+    }
+    private void useless()
+    {
+        ArrayList<String> strs = new ArrayList<>();
+        strs.forEach(System.out::println);
     }
 }

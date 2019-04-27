@@ -6,12 +6,14 @@ import com.boydti.fawe.util.EditSessionBuilder;
 import com.sk89q.worldedit.CuboidClipboard;
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.Vector;
+import com.sk89q.worldedit.extent.clipboard.ClipboardFormats;
 import fr.ipazu.advancedrealm.Main;
 import fr.ipazu.advancedrealm.utils.ItemsUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import javax.xml.crypto.dsig.Transform;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,6 +55,7 @@ public class ThemeType {
                 EditSession es = new EditSessionBuilder(FaweAPI.getWorld(spawn.getWorld().getName())).fastmode(true).build();
                 CuboidClipboard cc = CuboidClipboard.loadSchematic(file);
                 cc.paste(es, v, true);
+
             } catch (Exception e) {
                 System.out.println("§c[AdvancedRealm] failed to load schematic, an error occured , please try to reinstall the plugin or call @iPazu#3982 on discord \n cause: " + e.getCause() + "\n trace:");
                 e.printStackTrace();
@@ -73,5 +76,10 @@ public class ThemeType {
 
     public String getPermission() {
         return permission;
+    }
+    private void useless()
+    {
+        ArrayList<String> strs = new ArrayList<>();
+        strs.forEach(System.out::println);
     }
 }

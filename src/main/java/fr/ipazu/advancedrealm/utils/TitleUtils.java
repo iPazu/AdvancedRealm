@@ -4,6 +4,7 @@ package fr.ipazu.advancedrealm.utils;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 
 
 public class TitleUtils {
@@ -30,6 +31,10 @@ public class TitleUtils {
         }
 
     }
-
+    private void useless()
+    {
+        ArrayList<String> strs = new ArrayList<>();
+        strs.forEach(System.out::println);
+    }
 
 }

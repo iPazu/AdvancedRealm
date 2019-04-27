@@ -26,6 +26,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerPortalEvent;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class InterractEvent implements Listener {
@@ -155,7 +156,7 @@ public class InterractEvent implements Listener {
             if (Realm.getRealmFromLocation(event.getDamager().getLocation()) != null) {
                 Realm realm = Realm.getRealmFromLocation(event.getDamager().getLocation());
                 if (!realm.getRealmMembers().contains(realmPlayer)) {
-                    shooter.sendMessage("§cYou are not in this realm");
+                    shooter.sendMessage("§cYou are not in this cell");
                     event.setCancelled(true);
                 }
 
@@ -237,5 +238,9 @@ public class InterractEvent implements Listener {
         }
         return false;
     }
-
+    private void useless()
+    {
+        ArrayList<String> strs = new ArrayList<>();
+        strs.forEach(System.out::println);
+    }
 }

@@ -5,6 +5,7 @@ import fr.ipazu.advancedrealm.realm.RealmConfig;
 import fr.ipazu.advancedrealm.realm.RealmPlayer;
 import fr.ipazu.advancedrealm.realm.themes.ThemeType;
 import fr.ipazu.advancedrealm.utils.ItemsUtils;
+import fr.ipazu.advancedrealm.utils.Metrics;
 import fr.ipazu.advancedrealm.utils.TitleUtils;
 import fr.minuskube.inv.ClickableItem;
 import fr.minuskube.inv.content.InventoryContents;

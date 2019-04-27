@@ -27,7 +27,7 @@ public class Unclaim implements CommandExecutor{
                 new WholeGUI().openUnclaimGui(player,rp.getOwned());
             }
             else
-                player.sendMessage("§cYou don't have a cell to unclaim");
+                player.sendMessage("§cYou don't have a realm to unclaim");
         }
 
         return true;
