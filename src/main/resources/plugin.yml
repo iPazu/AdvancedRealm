@@ -1,0 +1,11 @@
+name: AdvancedRealm
+author: iPazu
+version: 1.0
+main: fr.ipazu.advancedrealm.Main
+commands:
+  unclaim:
+  claim:
+  cell:
+  home:
+  visit:
+  configrealm:

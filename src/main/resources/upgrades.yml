@@ -1,0 +1,81 @@
+levels:
+  1:
+    cost: 0
+    bordersize: 56
+    maxplayer: 4
+  2:
+    cost: 1000
+    bordersize: 66
+    maxplayer: 4
+  3:
+    cost: 2000
+    bordersize: 74
+    maxplayer: 5
+  4:
+    cost: 5000
+    bordersize: 84
+    maxplayer: 5
+  5:
+    cost: 10000
+    bordersize: 92
+    maxplayer: 6
+  6:
+    cost: 20000
+    bordersize: 102
+    maxplayer: 6
+  7:
+    cost: 50000
+    bordersize: 110
+    maxplayer: 7
+  8:
+    cost: 100000
+    bordersize: 120
+    maxplayer: 7
+  9:
+    cost: 150000
+    bordersize: 128
+    maxplayer: 8
+  10:
+    cost: 200000
+    bordersize: 138
+    maxplayer: 8
+  11:
+    cost: 250000
+    bordersize: 146
+    maxplayer: 9
+  12:
+    cost: 350000
+    bordersize: 156
+    maxplayer: 10
+  13:
+    cost: 500000
+    bordersize: 164
+    maxplayer: 10
+  14:
+    cost: 650000
+    bordersize: 174
+    maxplayer: 11
+  15:
+    cost: 850000
+    bordersize: 182
+    maxplayer: 11
+  16:
+    cost: 1000000
+    bordersize: 192
+    maxplayer: 12
+  17:
+    cost: 1250000
+    bordersize: 200
+    maxplayer: 12
+  18:
+    cost: 1500000
+    bordersize: 210
+    maxplayer: 13
+  19:
+    cost: 1750000
+    bordersize: 220
+    maxplayer: 14
+  20:
+    cost: 2000000
+    bordersize: 236
+    maxplayer: 15

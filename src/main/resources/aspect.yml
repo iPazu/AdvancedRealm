@@ -1,0 +1,110 @@
+gui:
+  realmgui:
+    home:
+      item: dark_oak_door_item
+      data: 0
+      name: "&bTeleport to Realm"
+      slot: 11
+      lore:
+        - ""
+        - "&7Teleport to %realm_name%'s Realm."
+      clickmessage: "&aTeleporting to the realm..."
+    privacy:
+      item: wood_sword
+      data: 0
+      name: "&bToogle Privacy: &3%realm_privacy%"
+      slot: 13
+      lore:
+        - "&7Toogle Realm's privacy"
+        - ""
+        - "&aPublic &8- &7Anyone can visit your Realm."
+        - "&cPrivate &8- &7No one can visit your Realm."
+      clickmessage: "&aRealm visibility succefully changed to &b%realm_privacy%"
+    banned:
+      item: barrier
+      data: 0
+      name: "&bBanned Players"
+      slot: 33
+      lore:
+        - ""
+        - "&7View and manage players that have been banned from this Realm."
+    members:
+      item: skull_item
+      data: 3
+      name: "&bMembers"
+      slot: 31
+      lore:
+        - ""
+        - "&7View and manage the members of this realm."
+    theme:
+      item: painting
+      data: 0
+      name: "&bSpawn Themes"
+      slot: 29
+      lore:
+        - ""
+        - "&7Customize your Realms spawn point with different themes."
+    upgrade:
+      item: dirt
+      data: 0
+      name: "&bUpgrade Build Size"
+      slot: 15
+      lore:
+        - "&7Click to upgrade Realm's build size."
+        - ""
+        - "&eCurrent Realm:"
+        - "&7Size: &e%realm_bordersize%&8x&e%realm_bordersize%"
+        - "&7Max # of Members: &e%realm_maxplayer%"
+        - ""
+        - "&aNext level:"
+        - "&7Size: &e%realm_nextbordersize%&8x&e%realm_nextbordersize%"
+        - "&7Max # of Members: &e%realm_nextmaxplayer%"
+        - "&7Cost: &6$%realm_nextlevelcost%"
+      maxlevellore:
+        - "&7Click to upgrade Realm's build size."
+        - ""
+        - "&eCurrent Realm:"
+        - "&7Size: &e%realm_bordersize%&8x&e%realm_bordersize%"
+        - "&7Max # of Members: &e%realm_maxplayer%"
+        - ""
+        - "&aMax level"
+  membersgui:
+    player:
+      name: "&b%player_name%"
+      lore:
+        - "&7Rank: &e%player_rank%"
+        - ""
+        - "&eClick to edit %player_name%'s permissions."
+  back:
+    item: bed
+    data: 0
+    name: "⬅ &bGo back"
+    slot: 45
+    lore:
+        - ""
+        - "&7Click to go back to the"
+        - "&7Realm options."
+  default:
+    item: stained_glass_pane
+    data: 15
+messages:
+  interact:
+    nobuild: "&cYou don't have the permission to build here"
+    nobreak: "&cYou don't have the permission to break here"
+    nointeract: "&cYou don't have the permission to interact in this realm"
+    nochest: "&cYou don't have the permission to open the chests of this realm"
+    notinrealm: "&cYou are not in this realm"
+  realmcommands:
+      invite:
+        selfinvite: "§cYou cannot invite yourself !"
+        alreadyinrealm: "§cThis player is already in your Realm !"
+        alreadyinvited: "This player is already invited to your Realm."
+        notexist: "§cThe specified player is not connected or doesn't exist."
+        realmfull: "§cThis realm is full, try to upgrade it!"
+        banned: "§cThis player is banned from this realm"
+        invitemsg: "§e§l%player% §ainvited you to join §b§l §realm_name§'s Realm."
+        msgsent: "§aSuccessfully sent invite to §e§l %targeted_player%§a. It will expire in §b120 secondes"
+        norealm: "§cYou don't have a realm where you can invite people"
+
+
+  commandsnoperm: "&cYou don't have the permission to do this."

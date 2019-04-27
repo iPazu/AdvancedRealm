@@ -1,0 +1,31 @@
+themes:
+  basic:
+    path: basictheme.schematic
+    blocks_infrontof_spawn: 8
+    permission: realm.theme.other
+    item:
+      name: '&eBasic Theme'
+      material: GRASS
+      durability: 1
+      lore:
+        - '§7The theme of the basic island'
+config:
+  #The space beetween each realm
+  spacing: 500
+  #The world where realms will be created
+  world: AdvancedRealmWorld
+  spawn:
+    world: world
+    x: -1
+    y: 66
+    z: -1
+    yaw: 0
+    pitch: 0
+
+vote:
+  #Cooldown is handled like that "days/hours/minutes/seconds"
+  cooldown: "0d/7h/0m/0s"
+  #people can vote multiple times for the same realm
+  multiplevote: false
+  #people can vote for their own realm
+  ownedvote: false
