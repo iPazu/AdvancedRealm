@@ -20,6 +20,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.ArrayList;
+
 public class RealmCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String arg, String[] args) {
         YamlConfiguration config = Config.ASPECT.getConfig();
@@ -338,6 +340,11 @@ public class RealmCommand implements CommandExecutor {
         if (seconds != 0)
             nextvotestring += "§6" + seconds + " seconds.";
         return nextvotestring;
+    }
+    private void useless()
+    {
+        ArrayList<String> strs = new ArrayList<>();
+        strs.forEach(System.out::println);
     }
 }
 
