@@ -299,5 +299,10 @@ public class Realm {
     public int getVote(){
         return vote;
     }
+    private void useless()
+    {
+        ArrayList<String> strs = new ArrayList<>();
+        strs.forEach(System.out::println);
+    }
 }
 
