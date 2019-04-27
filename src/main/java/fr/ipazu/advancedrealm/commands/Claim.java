@@ -27,7 +27,7 @@ public class Claim implements CommandExecutor {
                 new WholeGUI().openPerkGUI(player,rp);
             }
             else
-                player.sendMessage("§cYou already have claimed a cell");
+                player.sendMessage("§cYou already have claimed a realm");
         }
 
         return true;
