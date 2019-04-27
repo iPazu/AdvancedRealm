@@ -28,12 +28,12 @@ public class PerkProvider implements InventoryProvider{
     }
 
     private void setUpItems() {
-        xp = ClickableItem.of(new ItemsUtils(Material.EXP_BOTTLE, "§bXP multiplicator", Arrays.asList("", "§7Get a 1.5x XP Booster In Your Cell")).toItemStack(), e -> {
+        xp = ClickableItem.of(new ItemsUtils(Material.EXP_BOTTLE, "§bXP multiplicator", Arrays.asList("", "§7Get a 1.5x XP Booster In Your Realm")).toItemStack(), e -> {
             e.setCancelled(true);
             new WholeGUI().getPerkGui(player,realmPlayer).close(player);
             createRealm();
             realm.setPerk("xp");
-            TitleUtils.titlePacket(player,20,30,20,"§bCell claimed","§aGo to your Cell with §6/home");
+            TitleUtils.titlePacket(player,20,30,20,"§bRealm claimed","§aGo to your Realm with §6/home");
         });
 
         crops = ClickableItem.of(new ItemsUtils(Material.WHEAT, "§bBetter Crops", Arrays.asList("", "§7Crops grow faster.")).toItemStack(), e -> {
@@ -41,7 +41,7 @@ public class PerkProvider implements InventoryProvider{
             new WholeGUI().getPerkGui(player,realmPlayer).close(player);
             createRealm();
             realm.setPerk("crops");
-            TitleUtils.titlePacket(player,20,30,20,"§bCell claimed","§aGo to your Cell with §6/home");
+            TitleUtils.titlePacket(player,20,30,20,"§bRealm claimed","§aGo to your Realm with §6/home");
         });
         cancel = ClickableItem.of(new ItemsUtils(Material.INK_SACK, "§cCancel",(byte)1, Arrays.asList("", "§7Cancel the creation of your realm")).toItemStack(), e -> {
             e.setCancelled(true);
