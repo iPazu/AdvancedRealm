@@ -77,7 +77,7 @@ public class RealmCommand implements CommandExecutor {
                                 cb.append("§6Click Here").event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7click").create())).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/realm accept " + rp.getOwned().getOwner().getName()));
                                 cb.append("§a to join! You have §d120 seconds §ato accept");
                                 visedplayer.spigot().sendMessage(cb.create());
-                                player.sendMessage(Config.getStringWithReplacementPlayer(config.getString("messages.invite.invitemsg"),owned,vised));
+                                player.sendMessage(Config.getStringWithReplacementPlayer(config.getString("messages.realmcommands.invite.msgsent"),owned,vised));
                                 new BukkitRunnable() {
                                     @Override
                                     public void run() {

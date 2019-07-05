@@ -6,7 +6,6 @@ import fr.ipazu.advancedrealm.realm.RealmLevel;
 import fr.ipazu.advancedrealm.realm.RealmPlayer;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +48,10 @@ public enum Config {
         String newstring = getStringWithReplacementRealm(oldstring,r);
         newstring = pushColor(newstring);
         newstring = newstring.replace("%player_name%",rp.getName());
+        newstring = newstring.replace("%targeted_player%",rp.getName());
+
+        if(r.getRealmMembers().contains(rp))
         newstring = newstring.replace("%player_rank%",rp.getRankByRealm(r).toString());
-        newstring = newstring.replace("%player_name%",rp.getName());
         return newstring;
     }
     public static String getStringWithReplacementRealm(String oldstring, Realm r){
@@ -61,9 +62,12 @@ public enum Config {
         newstring = newstring.replace("%realm_bordersize%",r.getLevel().getBordersize()+"");
         newstring = newstring.replace("%realm_maxplayer%",r.getLevel().getMaxplayer()+"");
         RealmLevel nextlevel = RealmLevel.getLevel(r.getLevel().getNumber() + 1);
-        newstring = newstring.replace("%realm_nextbordersize%",nextlevel.getBordersize()+"");
-        newstring = newstring.replace("%realm_nextmaxplayer%",nextlevel.getMaxplayer()+"");
-        newstring = newstring.replace("%realm_nextlevelcost%",nextlevel.getPrice()+"");
+        if(nextlevel != null){
+            newstring = newstring.replace("%realm_nextbordersize%",nextlevel.getBordersize()+"");
+            newstring = newstring.replace("%realm_nextmaxplayer%",nextlevel.getMaxplayer()+"");
+            newstring = newstring.replace("%realm_nextlevelcost%",nextlevel.getPrice()+"");
+        }
+
         return newstring;
     }
 

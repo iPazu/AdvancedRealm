@@ -41,6 +41,19 @@ public class Reflector
         }
         return c;
     }
+    public static Class<?> getFaweClass(final String ClassName) {
+        final String className = "com.sk89q.worldedit.math." + ClassName;
+        Class<?> c = null;
+        try {
+            c = Class.forName(className);
+        }
+        catch (Exception e) {
+            Bukkit.getLogger().severe("Reflection failed for getCraftClass > " + className);
+            Bukkit.getServer().shutdown();
+            e.printStackTrace();
+        }
+        return c;
+    }
     public static Field getField(final Class<?> cl, final String fieldName) {
         try {
             return cl.getDeclaredField(fieldName);

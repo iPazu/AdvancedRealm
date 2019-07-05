@@ -96,15 +96,14 @@ messages:
     notinrealm: "&cYou are not in this realm"
   realmcommands:
       invite:
-        selfinvite: "§cYou cannot invite yourself !"
-        alreadyinrealm: "§cThis player is already in your Realm !"
+        selfinvite: "&cYou cannot invite yourself !"
+        alreadyinrealm: "&cThis player is already in your Realm !"
         alreadyinvited: "This player is already invited to your Realm."
-        notexist: "§cThe specified player is not connected or doesn't exist."
-        realmfull: "§cThis realm is full, try to upgrade it!"
-        banned: "§cThis player is banned from this realm"
-        invitemsg: "§e§l%player% §ainvited you to join §b§l §realm_name§'s Realm."
-        msgsent: "§aSuccessfully sent invite to §e§l %targeted_player%§a. It will expire in §b120 secondes"
-        norealm: "§cYou don't have a realm where you can invite people"
+        notexist: "&cThe specified player is not connected or doesn't exist."
+        realmfull: "&cThis realm is full, try to upgrade it!"
+        banned: "&cThis player is banned from this realm"
+        msgsent: "&aSuccessfully sent invite to &e&l%targeted_player%&a. It will expire in &b120 secondes"
+        norealm: "&cYou don't have a realm where you can invite people"
 
 
   commandsnoperm: "&cYou don't have the permission to do this."

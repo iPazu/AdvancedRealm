@@ -106,7 +106,7 @@ public class InterractEvent implements Listener {
         if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (event.getClickedBlock() != null && Realm.getRealmFromLocation(event.getClickedBlock().getLocation()) != null) {
                 Realm realm = Realm.getRealmFromLocation(event.getClickedBlock().getLocation());
-                if (!realm.getRealmMembers().contains(realmPlayer) && event.getClickedBlock().getType() != Material.SIGN_POST && event.getClickedBlock().getType() != Material.WALL_SIGN) {
+                if (!realm.getRealmMembers().contains(realmPlayer) && event.getClickedBlock().getType() != Material.SIGN && event.getClickedBlock().getType() != Material.WALL_SIGN) {
                     event.setCancelled(true);
                 }
                 if (realm.getRealmMembers().contains(realmPlayer) && event.getClickedBlock().getType() == Material.CHEST && realmPlayer.getRankByRealm(realm) == RealmRank.MEMBER) {

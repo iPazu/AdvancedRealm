@@ -1,8 +1,8 @@
 package fr.ipazu.advancedrealm.utils;
 
-import com.boydti.fawe.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.util.Vector;
 
 import java.util.*;

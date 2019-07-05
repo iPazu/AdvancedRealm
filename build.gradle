@@ -1,6 +1,6 @@
 
 group 'AdvancedRealm'
-version '1.0'
+version '1.2'
 
 apply plugin: 'java'
 
@@ -9,21 +9,25 @@ buildDir = 'C:\\Users\\alexl\\Bureau\\Server\\SkyRealm1.12\\output'
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
-
 repositories {
     mavenLocal()
     mavenCentral()
-    maven { url = 'https://ci.athion.net/job/FastAsyncWorldEdit/ws/mvn' }
+    maven {
+        name = 'placeholderapi'
+        url = 'http://repo.extendedclip.com/content/repositories/placeholderapi/' }
     maven { url = "http://maven.sk89q.com/repo/" }
     maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
     maven { url = 'https://oss.sonatype.org/content/repositories/snapshotss' }
+    maven { url 'http://ci.athion.net/job/FastAsyncWorldEdit/ws/mvn/' }
 }
 dependencies {
-    compileOnly 'org.spigotmc:spigot:1.12-R0.1-SNAPSHOT'
-    compile 'org.spigotmc:spigot-api:1.12-R0.1-SNAPSHOT'
-    compile 'com.boydti:fawe-api:latest'
-    compile "com.sk89q.worldedit:worldedit-bukkit:7.0.0-SNAPSHOT"
+    compileOnly 'com.sk89q.worldedit:worldedit-bukkit:6.0.0-SNAPSHOT'
+    compileOnly 'org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT'
+    compile 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
     compile 'fr.minuskube.inv:smart-invs:1.2.7'
+    compileOnly 'me.clip:placeholderapi:2.10.2'
     compileOnly "net.milkbowl.vault:VaultAPI:1.7"
+    compile files('libs/ARWrapper-1.0.jar')
+    compile 'com.boydti:fawe-api:latest'
 }
 

@@ -16,6 +16,7 @@ public class Claim implements CommandExecutor {
 
             return false;
         }
+
         if(cmd.getName().equalsIgnoreCase("claim")){
             Player player = (Player) sender;
             if(!player.hasPermission("realm.claim")){

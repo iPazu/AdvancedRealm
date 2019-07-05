@@ -1,39 +1,39 @@
 package fr.ipazu.advancedrealm.utils;
 
 import fr.ipazu.advancedrealm.Main;
-import fr.ipazu.advancedrealm.realm.Realm;
 import fr.ipazu.advancedrealm.realm.RealmConfig;
 import fr.ipazu.advancedrealm.realm.RealmLevel;
 import fr.ipazu.advancedrealm.realm.themes.ThemeConfig;
+import org.apache.commons.io.FileUtils;
 import org.bukkit.*;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.concurrent.Callable;
+import java.util.logging.Level;
 
 public class ConfigFiles {
     private static Location spawn;
     private static Inventory realmchest;
     private static World realmworld;
     private static long cooldown;
-    private static HashMap<Material, Double> oregenvalues = new HashMap<>();
-    private static boolean oregenactivated = false;
+
     private void checkFolder() {
         if (!Main.getInstance().getDataFolder().exists())
             Main.getInstance().getDataFolder().mkdir();
         File themedir = new File(Main.getInstance().getDataFolder().getPath() + "/theme");
         if (!themedir.exists())
             themedir.mkdir();
+        pasteFiles();
     }
-
 
     public void init() {
         checkFolder();
@@ -46,21 +46,13 @@ public class ConfigFiles {
         new RealmConfig().loadAllRealm();
         Verification.check();
 
-
-
-
     }
+
 
     public void loadConfig() {
         YamlConfiguration config = Config.CONFIG.getConfig();
-        if (Bukkit.getWorld(config.getString("config.spawn.world")) == null) {
-            Bukkit.createWorld(WorldCreator.name(config.getString("config.spawn.world")));
-
-        }
+        loadWorlds(config);
         spawn = new Location(Bukkit.getWorld(config.getString("config.spawn.world")), config.getInt("config.spawn.x"), config.getInt("config.spawn.y"), config.getInt("config.spawn.z"), (float) config.getInt("config.spawn.yaw"), (float) config.getInt("config.spawn.pitch"));
-        if (Bukkit.getWorld(config.getString("config.world")) == null) {
-            Bukkit.createWorld(WorldCreator.name(config.getString("config.world")));
-        }
         realmworld = Bukkit.getWorld(config.getString("config.world"));
         if (config.getString("config.chest") != null) {
             try {
@@ -68,24 +60,6 @@ public class ConfigFiles {
             } catch (Exception ex) {
                 System.out.println("[AdvancedRealm] Error while loading the config.yml file in the chest section, check if it is deleted or try to reinstall the plugin. If you don't sucess at solving the problem you can contact iPazu#3982 at discord");
 
-            }
-        }
-        oregenactivated = Config.CONFIG.getConfig().getBoolean("ore_generator.activated");
-        if (config.getString("ore_generator") != null) {
-            int total = 0;
-            for (String s : config.getConfigurationSection("ore_generator").getKeys(false)) {
-                if (!s.equals("activated") && !s.equals("sound")) {
-                    if (Material.getMaterial(s.toUpperCase()) == null) {
-                        System.out.println("[advancedrealm] Failed to load the material: \"" + s + "\" because you've not entered the right spelling in the config.yml file, try another spelling to active it !");
-                    } else {
-                        oregenvalues.put(Material.getMaterial(s.toUpperCase()), config.getDouble("ore_generator." + s));
-                        total += config.getInt("ore_generator." + s);
-                    }
-                }
-            }
-            if (total != 100) {
-                System.out.println("[advancedrealm] Wrong percentage entered for the ore generator in the config.yml file, the total percentage must be equal to 100. Disabling ore generator.");
-                oregenactivated = false;
             }
         }
         cooldown = getCooldown();
@@ -188,18 +162,64 @@ public class ConfigFiles {
         }
         return sb.toString();
     }
-    public static HashMap<Material, Double> getOregenvalues() {
-        return oregenvalues;
-    }
 
-    public static boolean getOregenActivated() {
-        return oregenactivated;
-    }
     private void loadUpgrades() {
         YamlConfiguration config = Config.UPGRADES.getConfig();
         ConfigurationSection levelsection = config.getConfigurationSection("levels");
         for (String s : levelsection.getKeys(false)) {
             new RealmLevel(Integer.parseInt(s), levelsection.getInt(s + ".cost"), levelsection.getInt(s + ".bordersize"), levelsection.getInt(s + ".maxplayer"));
         }
+    }
+
+    private void loadWorlds(YamlConfiguration config) {
+        if (!new File(Main.getInstance().getDataFolder().getPath() + "/../../" + config.getString("config.world")).exists() && !Bukkit.getVersion().contains("1.14")) {
+           System.out.println("[AdvancedRealm] Creating void world called " + config.getString("config.world"));
+            WorldCreator wc = new WorldCreator(config.getString("config.world"));
+            wc.type(WorldType.FLAT);
+            wc.generator(VoidWorld.getDefaultWorldGenerator());
+            wc.createWorld();
+        }
+        if (Bukkit.getWorld(config.getString("config.spawn.world")) == null) {
+            Bukkit.createWorld(WorldCreator.name(config.getString("config.spawn.world")));
+            System.out.println("[AdvancedRealm] Spawn world loaded: " + config.getString("config.spawn.world"));
+
+        }
+        if (Bukkit.getWorld(config.getString("config.world")) == null) {
+            Bukkit.createWorld(WorldCreator.name(config.getString("config.world")));
+            System.out.println("[AdvancedRealm] Realm world loaded: " + config.getString("config.world"));
+        }
+
+
+    }
+
+    private void pasteFiles() {
+        if (!new File(Main.getInstance().getDataFolder()+"/island.schematic").exists()) {
+            System.out.println("[AdvancedRealm] Creating island schematic");
+            copy(getClass().getResourceAsStream("/schematics/island.schematic"),Main.getInstance().getDataFolder().getPath() + "/island.schematic");
+        }
+        if (!new File(Main.getInstance().getDataFolder() + "/theme/basictheme.schematic").exists()) {
+            System.out.println("[AdvancedRealm] Creating basic theme schematic");
+            copy(getClass().getResourceAsStream("/schematics/theme/basictheme.schematic"), Main.getInstance().getDataFolder().getPath() + "/theme/basictheme.schematic");
+        }
+        if (Bukkit.getVersion().contains("1.13") || Bukkit.getVersion().contains("1.14") && !new File(Main.getInstance().getDataFolder().getPath() + "/../ARWrapper.jar").exists()) {
+            System.out.println("[AdvancedRealm] Creating ARwrapper");
+            copy(getClass().getResourceAsStream("/ARWrapper-1.0.jar"), Main.getInstance().getDataFolder().getPath() + "/../ARWrapper.jar");
+        }
+    }
+    public static boolean copy(InputStream source , String destination) {
+
+        boolean succeess = true;
+
+        System.out.println("Copying ->" + source + "\n\tto ->" + destination);
+
+        try {
+            Files.copy(source, Paths.get(destination), StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException ex) {
+            System.out.println("[AdvancedRealm] Error while creating files");
+            ex.printStackTrace();
+        }
+
+        return succeess;
+
     }
 }

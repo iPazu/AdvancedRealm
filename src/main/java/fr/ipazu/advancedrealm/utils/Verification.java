@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Verification {
-    private static String id = "MineSpira" ;
-    private String ressource = "%%__RESOURCE__%%";
-    private String nonce = "%%__NONCE__%%";
+    public static String id = "%%__USER__%%";
+    public String ressource = "%%__RESOURCE__%%";
+    public String nonce = "%%__NONCE__%%";
     private static ArrayList<String> blackid = new ArrayList<>();
 
     public static void disablePlugin() {

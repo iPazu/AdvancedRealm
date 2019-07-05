@@ -1,17 +1,11 @@
 package fr.ipazu.advancedrealm.realm;
 
-
-import com.boydti.fawe.FaweAPI;
-import com.boydti.fawe.util.EditSessionBuilder;
-import com.sk89q.worldedit.CuboidClipboard;
-import com.sk89q.worldedit.EditSession;
-import com.sk89q.worldedit.Vector;
-import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormat;
 import fr.ipazu.advancedrealm.Main;
 import fr.ipazu.advancedrealm.realm.themes.Theme;
 import fr.ipazu.advancedrealm.realm.themes.ThemeType;
 import fr.ipazu.advancedrealm.utils.ConfigFiles;
 import fr.ipazu.advancedrealm.utils.CuboidUtils;
+import fr.ipazu.advancedrealm.utils.SchematicUtils;
 import fr.ipazu.advancedrealm.utils.WorldBorder;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -21,10 +15,8 @@ import org.bukkit.block.Chest;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class Realm {
@@ -39,7 +31,7 @@ public class Realm {
     private ArrayList<RealmPlayer> banned = new ArrayList<>();
     private RealmPlayer owner;
 
-    public Realm(RealmPlayer rp, ThemeType theme, Location location, int level,int vote) {
+    public Realm(RealmPlayer rp, ThemeType theme, Location location, int level, int vote) {
         owner = rp;
         setLevel(level);
         privacy = false;
@@ -77,8 +69,8 @@ public class Realm {
         sendWorldBorderPacket(player);
     }
 
-    public void sendToAll() {
-        
+    private void sendToAll() {
+
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (cuboid.containsLocation(player.getLocation())) {
                 sendWorldBorderPacket(player);
@@ -92,7 +84,7 @@ public class Realm {
         return center;
     }
 
-    public void sendWorldBorderPacket(Player player) {
+    private void sendWorldBorderPacket(Player player) {
         WorldBorder.sendBorder(getCenter(), level.getBordersize(), player);
     }
 
@@ -116,7 +108,7 @@ public class Realm {
         }
     }
 
-    public void setCuboid() {
+    private void setCuboid() {
         Location center = getCenter();
         Location loc1 = center.clone().add(-(level.getBordersize() / 2), 300, -((level.getBordersize() / 2) + 1));
         Location loc2 = center.clone().add(level.getBordersize() / 2, -300, (level.getBordersize() / 2) + 1);
@@ -144,7 +136,7 @@ public class Realm {
     public void fillChest() {
 
         for (Block block : cuboid.getBlocks()) {
-            if(block.getLocation().getChunk().isLoaded()){
+            if (block.getLocation().getChunk().isLoaded()) {
                 block.getLocation().getChunk().load();
             }
             Block fromloc = block.getLocation().getBlock();
@@ -181,15 +173,12 @@ public class Realm {
     public void pasteIsland() {
         try {
             File file = new File(Main.getInstance().getDataFolder(), "island.schematic");
-            Vector v = new Vector(theme.getSpawn().getBlockX(), theme.getSpawn().getBlockY(), theme.getSpawn().getBlockZ());
-            EditSession es = new EditSessionBuilder(FaweAPI.getWorld(theme.getSpawn().getWorld().getName())).fastmode(true).build();
-            CuboidClipboard cc = CuboidClipboard.loadSchematic(file);
-            cc.paste(es, v, true);
-
-        } catch (Exception e) {
+            new SchematicUtils(theme.getSpawn(),file).paste();
+            } catch (Exception e) {
             System.out.println("§c[AdvancedRealm] failed to load schematic, an error occured , please try to reinstall the plugin or call @iPazu#3982 on discord \n cause: " + e.getCause() + "\n trace:");
             e.printStackTrace();
         }
+
     }
 
     public void delete() {
@@ -206,19 +195,19 @@ public class Realm {
         }
         new RealmConfig().delete(this);
         new RealmConfig().removeVotes(this);
-        for (Block block : cuboid.getBlocks()){
+        for (Block block : cuboid.getBlocks()) {
             block.setType(Material.AIR);
 
         }
-        for(Entity entity : theme.getSpawn().getWorld().getEntities()){
-            if(!(entity instanceof Player) && cuboid.containsLocation(entity.getLocation())){
+        for (Entity entity : theme.getSpawn().getWorld().getEntities()) {
+            if (!(entity instanceof Player) && cuboid.containsLocation(entity.getLocation())) {
                 entity.remove();
             }
         }
 
     }
 
-    public void demote(RealmPlayer player) {
+    private void demote(RealmPlayer player) {
         player.rankbyrealm.remove(this);
     }
 
@@ -241,10 +230,10 @@ public class Realm {
     public void setPrivacy(boolean b) {
         privacy = b;
         new RealmConfig().setPrivacy(this);
-        if(b){
-            for(Player p : Bukkit.getOnlinePlayers()){
+        if (b) {
+            for (Player p : Bukkit.getOnlinePlayers()) {
                 RealmPlayer realmPlayer = RealmPlayer.getPlayer(p.getUniqueId().toString());
-                if(this.cuboid.containsLocation(p.getLocation()) && !this.getRealmMembers().contains(realmPlayer)){
+                if (this.cuboid.containsLocation(p.getLocation()) && !this.getRealmMembers().contains(realmPlayer)) {
                     p.teleport(ConfigFiles.getSpawn());
                 }
             }
@@ -268,14 +257,14 @@ public class Realm {
         level = RealmLevel.getLevel(i);
     }
 
-   public void addVote(){
+    public void addVote() {
         vote++;
-       new RealmConfig().updateVote(this);
-   }
+        new RealmConfig().updateVote(this);
+    }
 
     public static Realm getRealmFromLocation(Location location) {
         for (Realm r : allrealm) {
-            if (r.cuboid.containsLocation(location)){
+            if (r.cuboid.containsLocation(location)) {
                 return r;
             }
         }
@@ -289,18 +278,19 @@ public class Realm {
             return "Public";
     }
 
-    public void setOwner(RealmPlayer owner) {
+    void setOwner(RealmPlayer owner) {
         this.owner = owner;
     }
-     public CuboidUtils getCuboid(){
-        return cuboid;
-     }
 
-    public int getVote(){
+    public CuboidUtils getCuboid() {
+        return cuboid;
+    }
+
+    public int getVote() {
         return vote;
     }
-    private void useless()
-    {
+
+    private void useless() {
         ArrayList<String> strs = new ArrayList<>();
         strs.forEach(System.out::println);
     }
