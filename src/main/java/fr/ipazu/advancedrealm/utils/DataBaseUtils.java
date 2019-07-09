@@ -24,6 +24,7 @@ public class DataBaseUtils {
             connection = DriverManager.getConnection(irl, pers, mum);
             info("Connexion database établie avec succès!");
         }else err("Connexion impossible : il manque des informations.", "Connexion Database");
+
     }
     private void connectionDatabase(){
         String url =  "jdbc:mysql://154.49.211.66:3306/market";

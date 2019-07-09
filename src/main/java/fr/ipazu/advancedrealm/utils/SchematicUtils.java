@@ -18,7 +18,7 @@ public class SchematicUtils {
     }
 
     public void paste() throws Exception {
-        if (Bukkit.getVersion().contains("1.14")) {
+        if (Bukkit.getVersion().contains("1.14")  ) {
             paste14();
         } else if (Bukkit.getVersion().contains("1.13")) {
             paste13();

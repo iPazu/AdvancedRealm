@@ -5,6 +5,9 @@ import fr.ipazu.advancedrealm.realm.RealmPlayer;
 import fr.ipazu.advancedrealm.realm.RealmRank;
 import fr.ipazu.advancedrealm.utils.Config;
 import fr.ipazu.advancedrealm.utils.ConfigFiles;
+import fr.ipazu.arapi.events.PlayerMoveInRealmEvent;
+import fr.ipazu.arapi.events.RealmBreakEvent;
+import fr.ipazu.arapi.events.RealmBuildEvent;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -38,6 +41,7 @@ public class InterractEvent implements Listener {
         RealmPlayer realmPlayer = RealmPlayer.getPlayer(player.getUniqueId().toString());
         if (Realm.getRealmFromLocation(event.getBlock().getLocation()) != null) {
             Realm realm = Realm.getRealmFromLocation(event.getBlock().getLocation());
+            new RealmBreakEvent(realm, realmPlayer, player, event.getBlock());
             if (player.hasPermission("realm.bypass")) {
                 return;
             }
@@ -60,6 +64,7 @@ public class InterractEvent implements Listener {
         RealmPlayer realmPlayer = RealmPlayer.getPlayer(player.getUniqueId().toString());
         if (Realm.getRealmFromLocation(event.getBlock().getLocation()) != null) {
             Realm realm = Realm.getRealmFromLocation(event.getBlock().getLocation());
+            new RealmBuildEvent(realm, realmPlayer, player, event.getBlock());
             if (player.hasPermission("realm.bypass")) {
                 return;
             }
@@ -134,14 +139,15 @@ public class InterractEvent implements Listener {
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
-        if (player.getLocation().getBlockY() <= -1) {
-            if (Realm.getRealmFromLocation(player.getLocation()) != null) {
-                Realm realm = Realm.getRealmFromLocation(player.getLocation());
+        if (Realm.getRealmFromLocation(player.getLocation()) != null) {
+            Realm realm = Realm.getRealmFromLocation(player.getLocation());
+            new PlayerMoveInRealmEvent(realm,RealmPlayer.getPlayer(player.getUniqueId().toString()),player);
+            if (player.getLocation().getBlockY() <= -1) {
                 realm.teleportToSpawn(player);
             }
-        }
-        if (player.getLocation().getBlock().getType() == Material.PORTAL && Realm.getRealmFromLocation(player.getLocation()) != null) {
-            new ConfigFiles().sendToSpawn(player);
+            if (player.getLocation().getBlock().getType() == Material.PORTAL) {
+                new ConfigFiles().sendToSpawn(player);
+            }
         }
     }
 
@@ -238,8 +244,8 @@ public class InterractEvent implements Listener {
         }
         return false;
     }
-    private void useless()
-    {
+
+    private void useless() {
         ArrayList<String> strs = new ArrayList<>();
         strs.forEach(System.out::println);
     }

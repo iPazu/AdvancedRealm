@@ -29,5 +29,7 @@ dependencies {
     compileOnly "net.milkbowl.vault:VaultAPI:1.7"
     compile files('libs/ARWrapper-1.0.jar')
     compile 'com.boydti:fawe-api:latest'
+    compile 'fr.ipazu.advancedrealm-api:AdvancedRealm-API:1.0'
+
 }
 
