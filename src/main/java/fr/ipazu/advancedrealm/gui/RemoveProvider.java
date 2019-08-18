@@ -1,11 +1,7 @@
 package fr.ipazu.advancedrealm.gui;
-
-
 import fr.ipazu.advancedrealm.realm.Realm;
-import fr.ipazu.advancedrealm.realm.RealmPlayer;
 import fr.ipazu.advancedrealm.utils.ItemsUtils;
 import fr.ipazu.advancedrealm.utils.TitleUtils;
-import fr.ipazu.arapi.events.RealmUnclaimEvent;
 import fr.minuskube.inv.ClickableItem;
 import fr.minuskube.inv.content.InventoryContents;
 import fr.minuskube.inv.content.InventoryProvider;
@@ -31,7 +27,7 @@ public class RemoveProvider implements InventoryProvider {
         yes = ClickableItem.of(new ItemsUtils(Material.STAINED_CLAY, "§cUnclaim Realm",(byte) 5, Arrays.asList("§7Unclaiming a realm will ", "§7remove your Realm and any ","§7progress on that Realm.")).toItemStack(), e -> {
             e.setCancelled(true);
             e.getWhoClicked().closeInventory();
-            new RealmUnclaimEvent(realm, RealmPlayer.getPlayer(player.getUniqueId().toString()),player);
+            //new RealmUnclaimEvent(realm, RealmPlayer.getPlayer(player.getUniqueId().toString()),player);
             realm.delete();
             TitleUtils.titlePacket(player,20,30,20,"§bRealm unclaimed","§aClaim a new one with §6/claim");
         });

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RealmLevel {
-    private static HashMap<Integer,RealmLevel> realmlevel = new HashMap<>();
+    public static HashMap<Integer,RealmLevel> realmlevel = new HashMap<>();
     private int price;
     private int bordersize;
     private int maxplayer;

@@ -1,13 +1,16 @@
 package fr.ipazu.advancedrealm.utils;
 
 import com.boydti.fawe.FaweAPI;
+import com.boydti.fawe.util.TaskManager;
 import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.extent.clipboard.ClipboardFormats;
-import fr.ipazu.arwrapper.SchematicWrapper;
+import fr.ipazu.advancedrealm.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+
 public class SchematicUtils {
     private Location location;
     private File file;
@@ -26,19 +29,28 @@ public class SchematicUtils {
             pasteLegacy();
     }
 
-    private void pasteLegacy() throws IOException {
-        Vector vector = new Vector(location.getX(), location.getY(), location.getZ());
-       ClipboardFormats.findByFile(file).load(file).paste(FaweAPI.getWorld(location.getWorld().getName()), vector, true, false, null);
+    private void pasteLegacy()  {
+        TaskManager.IMP.async(() -> {
+            Vector vector = new Vector(location.getX(), location.getY(), location.getZ());
+            try {
+                ClipboardFormats.findByFile(file).load(file).paste(FaweAPI.getWorld(location.getWorld().getName()), vector, true, false, null);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
     }
 
-    private void paste13() throws IOException {
+    private void paste13() throws NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
+        Class<?> wrapperclass = Main.wrapperclass;
+        wrapperclass.getMethod("paste",File.class,Location.class).invoke(wrapperclass.newInstance(),file,location);
         System.out.println("Pasting 1.13");
-        new SchematicWrapper(file, location).paste();
     }
 
     private void paste14() throws Exception {
+        Class<?> wrapperclass = Main.wrapperclass;
+        wrapperclass.getMethod("paste14",File.class,Location.class).invoke(wrapperclass.newInstance(),file,location);
         System.out.println("Pasting 1.14");
-        new SchematicWrapper(file,location).paste14();
     }
 }
 

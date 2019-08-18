@@ -79,7 +79,7 @@ public class EditMemberProvider implements InventoryProvider {
         });
 
         member = ClickableItem.of(new ItemsUtils(Material.COBBLESTONE, "§bMember",
-                Arrays.asList("§7Member Permissions:","","§7-§e Can build with restrictions","§7-§e Can break with restrictions","§7-§e Can interact with restrictions")).toItemStack(), e -> {
+                Arrays.asList("§7Member Permissions:","","§7-§e Can't open chests")).toItemStack(), e -> {
             e.setCancelled(true);
             e.getWhoClicked().closeInventory();
             if(realmplayer.getRankByRealm(realm) == RealmRank.MEMBER || realmplayer.getRankByRealm(realm) == RealmRank.GUARD){

@@ -45,7 +45,6 @@ public class ConfigFiles {
         System.out.println("[AdvancedRealm] Starting loading realms ...");
         new RealmConfig().loadAllRealm();
         Verification.check();
-
     }
 
 
@@ -89,7 +88,6 @@ public class ConfigFiles {
             if (config.get(s) == null) {
                 config.set(s, sourceconfig.get(s));
             }
-
         }
         config.save(file);
     }
@@ -195,20 +193,20 @@ public class ConfigFiles {
     private void pasteFiles() {
         if (!new File(Main.getInstance().getDataFolder()+"/island.schematic").exists()) {
             System.out.println("[AdvancedRealm] Creating island schematic");
-            copy(getClass().getResourceAsStream("/schematics/island.schematic"),Main.getInstance().getDataFolder().getPath() + "/island.schematic");
+            copy(getClass().getResourceAsStream("/schematics/island.schematic"),Main.getInstance().getDataFolder().getAbsolutePath() + "/island.schematic");
         }
         if (!new File(Main.getInstance().getDataFolder() + "/theme/basictheme.schematic").exists()) {
             System.out.println("[AdvancedRealm] Creating basic theme schematic");
-            copy(getClass().getResourceAsStream("/schematics/theme/basictheme.schematic"), Main.getInstance().getDataFolder().getPath() + "/theme/basictheme.schematic");
+            copy(getClass().getResourceAsStream("/schematics/theme/basictheme.schematic"), Main.getInstance().getDataFolder().getAbsolutePath() + "/theme/basictheme.schematic");
         }
-        if (Bukkit.getVersion().contains("1.13") || Bukkit.getVersion().contains("1.14") && !new File(Main.getInstance().getDataFolder().getPath() + "/../ARWrapper.jar").exists()) {
+        if ((Bukkit.getVersion().contains("1.13") || Bukkit.getVersion().contains("1.14")) && !new File(Main.getInstance().getDataFolder().getAbsolutePath() + "/../ARWrapper.jar").exists()) {
             System.out.println("[AdvancedRealm] Creating ARwrapper");
-            copy(getClass().getResourceAsStream("/ARWrapper-1.0.jar"), Main.getInstance().getDataFolder().getPath() + "/../ARWrapper.jar");
+            copy(getClass().getResourceAsStream("/ARWrapper.jar"), Main.getInstance().getDataFolder().getPath() + "/../ARWrapper.jar");
         }
     }
     public static boolean copy(InputStream source , String destination) {
 
-        boolean succeess = true;
+        boolean success = true;
 
         System.out.println("Copying ->" + source + "\n\tto ->" + destination);
 
@@ -219,7 +217,7 @@ public class ConfigFiles {
             ex.printStackTrace();
         }
 
-        return succeess;
+        return success;
 
     }
 }

@@ -24,15 +24,17 @@ public class Verification {
            System.out.println("[AdvancedRealm] Leaks destroy the work of developpers, if you want to have the plugin you can buy it on spigot");
            disablePlugin();
        }
+       else {
+           System.out.println("[AdvancedRealm] License Activated with id:"+id);
+       }
     }
     private static void loadBlackId() {
         try {
-            URL url = new URL("https://gitlab.com/iPazu/advancedrealm-api/raw/master/blacklicence");
+            URL url = new URL("https://gitlab.com/iPazu/advancedrealm-api/raw/master/blacklicense");
             Scanner in = new Scanner(url.openStream());
 
             while (in.hasNextLine()) {
                blackid.add(in.nextLine());
-
             }
             in.close();
         }

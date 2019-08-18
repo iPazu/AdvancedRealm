@@ -34,6 +34,7 @@ public class AllBanProvider implements InventoryProvider {
         this.vised = vised;
         this.player = player;
         setAvaibleRealms();
+
     }
 
     public void setAvaibleRealms() {

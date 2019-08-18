@@ -1,5 +1,6 @@
 package fr.ipazu.advancedrealm.realm;
 
+import com.boydti.fawe.util.TaskManager;
 import fr.ipazu.advancedrealm.Main;
 import fr.ipazu.advancedrealm.realm.themes.Theme;
 import fr.ipazu.advancedrealm.realm.themes.ThemeType;
@@ -43,7 +44,6 @@ public class Realm {
         promote(rp, RealmRank.OWNER);
         rp.setOwned(this);
     }
-
     public void addPlayer(RealmPlayer p) {
         if (!(realmmembers.size() >= level.getMaxplayer())) {
             realmmembers.add(p);
@@ -56,7 +56,7 @@ public class Realm {
         setLevel(i);
         setCuboid();
         new RealmConfig().setLevel(this);
-        sendToAll();
+        sendBorderToAll();
     }
 
     public void spawnTheme() {
@@ -69,7 +69,7 @@ public class Realm {
         sendWorldBorderPacket(player);
     }
 
-    private void sendToAll() {
+    public void sendBorderToAll() {
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (cuboid.containsLocation(player.getLocation())) {
@@ -78,13 +78,13 @@ public class Realm {
         }
     }
 
-    private Location getCenter() {
+    public Location getCenter() {
         int i = level.getBordersize() - RealmLevel.getLevel(1).getBordersize();
         Location center = theme.getSpawn().clone().add(0, 0, i + theme.getThemeType().getNblock() - 4.5 * level.getNumber());
         return center;
     }
 
-    private void sendWorldBorderPacket(Player player) {
+    public void sendWorldBorderPacket(Player player) {
         WorldBorder.sendBorder(getCenter(), level.getBordersize(), player);
     }
 
@@ -108,7 +108,7 @@ public class Realm {
         }
     }
 
-    private void setCuboid() {
+    public void setCuboid() {
         Location center = getCenter();
         Location loc1 = center.clone().add(-(level.getBordersize() / 2), 300, -((level.getBordersize() / 2) + 1));
         Location loc2 = center.clone().add(level.getBordersize() / 2, -300, (level.getBordersize() / 2) + 1);
@@ -195,19 +195,17 @@ public class Realm {
         }
         new RealmConfig().delete(this);
         new RealmConfig().removeVotes(this);
-        for (Block block : cuboid.getBlocks()) {
-            block.setType(Material.AIR);
-
-        }
-        for (Entity entity : theme.getSpawn().getWorld().getEntities()) {
-            if (!(entity instanceof Player) && cuboid.containsLocation(entity.getLocation())) {
-                entity.remove();
+            for (Block block : cuboid.getBlocks()) {
+                block.setType(Material.AIR);
             }
-        }
-
+            for (Entity entity : theme.getSpawn().getWorld().getEntities()) {
+                if (!(entity instanceof Player) && cuboid.containsLocation(entity.getLocation())) {
+                    entity.remove();
+                }
+            }
     }
 
-    private void demote(RealmPlayer player) {
+    public void demote(RealmPlayer player) {
         player.rankbyrealm.remove(this);
     }
 
@@ -278,7 +276,7 @@ public class Realm {
             return "Public";
     }
 
-    void setOwner(RealmPlayer owner) {
+    public void setOwner(RealmPlayer owner) {
         this.owner = owner;
     }
 

@@ -5,9 +5,7 @@ import fr.ipazu.advancedrealm.realm.RealmConfig;
 import fr.ipazu.advancedrealm.realm.RealmPlayer;
 import fr.ipazu.advancedrealm.realm.themes.ThemeType;
 import fr.ipazu.advancedrealm.utils.ItemsUtils;
-import fr.ipazu.advancedrealm.utils.Metrics;
 import fr.ipazu.advancedrealm.utils.TitleUtils;
-import fr.ipazu.arapi.events.RealmClaimEvent;
 import fr.minuskube.inv.ClickableItem;
 import fr.minuskube.inv.content.InventoryContents;
 import fr.minuskube.inv.content.InventoryProvider;
@@ -68,7 +66,7 @@ public class PerkProvider implements InventoryProvider{
         realm.fillChest();
         new RealmConfig().updateRealm(realmPlayer.getOwned());
         this.realm = realm;
-        new RealmClaimEvent(realm,realmPlayer);
+        //new RealmClaimEvent(realm,realmPlayer);
     }
 
     @Override

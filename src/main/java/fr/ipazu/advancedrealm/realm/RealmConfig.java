@@ -199,7 +199,6 @@ public class RealmConfig {
     }
 
     public void loadRealm(String name) {
-
         for (String s : config.getConfigurationSection("realms." + name + ".players").getKeys(false)) {
             if (RealmPlayer.getPlayer(s) == null)
                 new RealmPlayer(s, config.getString("realms." + name + ".players." + s + ".name"));
@@ -215,6 +214,7 @@ public class RealmConfig {
         }
         realm.setOwner(RealmPlayer.getPlayer(config.getString("realms." + name + ".owner.uuid")));
         realm.setPrivacy(config.getBoolean("realms." + name + ".privacy"));
+        realm.setPerk(config.getString("realms."+name+".perk"));
         if (config.getConfigurationSection("realms." + name + ".banned") != null) {
             for (String s : config.getConfigurationSection("realms." + name + ".banned").getKeys(false)) {
                 if (RealmPlayer.getPlayer(s) == null)

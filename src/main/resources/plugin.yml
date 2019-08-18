@@ -1,6 +1,6 @@
 name: AdvancedRealm
 author: iPazu
-version: 1.2
+version: 1.2.1.1
 main: fr.ipazu.advancedrealm.Main
 commands:
   unclaim:
@@ -9,5 +9,5 @@ commands:
   home:
   visit:
   configrealm:
-depends: [SmartInvs,WorldEdit]
+depends: [SmartInvs,WorldEdit,ARWrapper]
 softdepend: [PlaceholderAPI]

@@ -9,11 +9,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class Claim implements CommandExecutor {
-    public boolean onCommand(CommandSender sender, Command cmd, String arg, String[] args)
-    {
+    public boolean onCommand(CommandSender sender, Command cmd, String arg, String[] args) {
+
         if (!(sender instanceof Player)) {
             sender.sendMessage("The command is only executable by a player !");
-
             return false;
         }
 

@@ -10,8 +10,9 @@ public class PerkEvent implements Listener {
     @EventHandler
     public void onCrops(BlockGrowEvent event){
         if(Realm.getRealmFromLocation(event.getBlock().getLocation()) != null){
-            if(Realm.getRealmFromLocation(event.getBlock().getLocation()).getPerk() != null){
-                if(Realm.getRealmFromLocation(event.getBlock().getLocation()).getPerk().equalsIgnoreCase("crops")){
+            Realm realm = Realm.getRealmFromLocation(event.getBlock().getLocation());
+            if(realm.getPerk() != null){
+                if(realm.getPerk().equalsIgnoreCase("crops")){
                     event.getBlock().setData((byte)(event.getBlock().getData() + 1));
                 }
             }
@@ -20,8 +21,9 @@ public class PerkEvent implements Listener {
     @EventHandler
     public void onXp(PlayerExpChangeEvent event){
         if(Realm.getRealmFromLocation(event.getPlayer().getLocation()) != null){
-            if(Realm.getRealmFromLocation(event.getPlayer().getLocation()).getPerk() != null){
-                if(Realm.getRealmFromLocation(event.getPlayer().getLocation()).getPerk().equalsIgnoreCase("xp")){
+            Realm realm = Realm.getRealmFromLocation(event.getPlayer().getLocation());
+            if(realm.getPerk() != null){
+                if(realm.getPerk().equalsIgnoreCase("xp")){
                     int expnew = (int)Math.round(event.getAmount() * 1.5);
                     event.setAmount(expnew);
                 }
